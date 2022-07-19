@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
 
 const BlogPostForm = ({
   titleLabel,
-  initialValues = { initialTitle: '', initialContent: '' },
+  initialValues,
   contentLabel,
   buttonLabel,
   onPressHandler,
@@ -28,6 +28,10 @@ const BlogPostForm = ({
       />
     </View>
   );
+};
+
+BlogPostForm.defaultProps = {
+  initialValues: { initialTitle: '', initialContent: '' },
 };
 
 const styles = StyleSheet.create({
