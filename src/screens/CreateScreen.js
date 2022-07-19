@@ -11,8 +11,9 @@ const CreateScreen = ({ navigation }) => {
   const { addBlogPost } = useContext(Context);
 
   const onAddPostHandler = () => {
-    addBlogPost(title, content);
-    navigation.navigate('Index');
+    addBlogPost(title, content, () => {
+      navigation.navigate('Index');
+    });
   };
 
   return (
