@@ -1,12 +1,22 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Context } from '../context/BlogContext';
 import { EvilIcons } from '@expo/vector-icons';
 
 const ShowScreen = ({ navigation }) => {
   const id = navigation.getParam('id');
-  const { state } = useContext(Context);
+  const { state, getBlogPosts } = useContext(Context);
   const { title, content } = state.find((post) => post.id === id);
+  useEffect(() => {
+    getBlogPosts();
+
+    const listener = navigation.addListener('didFocus', () => {
+      getBlogPosts();
+      return () => {
+        listener.remove();
+      };
+    });
+  }, []);
   return (
     <View>
       <Text>{title}</Text>

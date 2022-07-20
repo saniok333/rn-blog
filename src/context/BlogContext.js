@@ -5,17 +5,6 @@ const blogReducer = (state, action) => {
   switch (action.type) {
     case 'get_blogposts':
       return action.payload;
-    case 'edit_blogpost':
-      return state.map((post) => {
-        if (post.id === action.payload.id) {
-          return {
-            ...post,
-            title: action.payload.title,
-            content: action.payload.content,
-          };
-        }
-        return post;
-      });
     default:
       return state;
   }
@@ -38,9 +27,9 @@ const addBlogPost = () => {
   };
 };
 
-const editBlogPost = (dispatch) => {
-  return (id, title, content, callback) => {
-    dispatch({ type: 'edit_blogpost', payload: { id, title, content } });
+const editBlogPost = () => {
+  return async (id, title, content, callback) => {
+    await jsonServer.put(`/blogposts/${id}`, { title, content });
     if (callback) {
       callback();
     }
